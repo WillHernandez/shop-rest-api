@@ -8,9 +8,9 @@ const createProduct = async (req, res) => {
 		if(productExists) {
 			product = await ProductsModel.findOneAndUpdate({name: req.body.name}, {...req.body});
 		} else {
-			product = await ProductsModel.create({ ...req.body })
+			product = await ProductsModel.create({ ...req.body });
 		}
-		res.status(200).json({success: req.body})
+		res.status(200).json({success: product});
 	} catch (e) {
 			res.status(400).json({error: e.message});
 	}

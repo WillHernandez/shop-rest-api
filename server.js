@@ -1,6 +1,3 @@
-// const http = require('http');
-// const server = http.createServer();
-// server.listen(port)
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -37,7 +34,6 @@ app.use((err, req, res, next) => {
 const dbConnect = async () => {
 	try {
 		await mongoose.connect(process.env.MONGO_URI);
-
 		app.listen(port, () => {
 			console.log(`MongoDb connected / Server running on port ${port}`);
 		});

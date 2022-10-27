@@ -23,8 +23,9 @@ const logIn = async (req, res) => {
 	try {
 		// user exists
 		const user = await UserModel.findOne({ email: req.body.email });
-		// Pw is a match for user: 		pw provided in request, salted pw from db
-		const match = await bcrypt.compare(req.body.password, user.password); 
+		let match;
+			// Pw is a match for user: 		pw provided in request, salted pw from db
+		user ?  match = await bcrypt.compare(req.body.password, user.password) : null
 		if(user && match) { // create a token for auth
 			const token = await jwt.sign({
 					email: user.email,

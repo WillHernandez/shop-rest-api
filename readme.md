@@ -1,3 +1,3 @@
-A shop rest api created using NodeJs, Mongodb, Mongoose  
-Contains user auth for new users  
-Contains token auth for owners access to db read/write  
+A shop rest api created using NodeJs, ExpressJs, Mongoose, MongoDB  
+Contains user auth for new users with password encryption on the server  
+Contains token auth for owners only access to DB read & write  
