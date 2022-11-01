@@ -21,12 +21,10 @@ const signUp = async (req, res) => {
 
 const logIn = async (req, res) => {
 	try {
-		// user exists
 		const user = await UserModel.findOne({ email: req.body.email });
 		let match;
-			// Pw is a match for user: 		pw provided in request, salted pw from db
 		user ?  match = await bcrypt.compare(req.body.password, user.password) : null
-		if(user && match) { // create a token for auth
+		if(user && match) {
 			const token = await jwt.sign({
 					email: user.email,
 					userId: user._id
@@ -36,7 +34,7 @@ const logIn = async (req, res) => {
 					expiresIn: "1h"
 				}
 			)
-			res.status(200).json({message: "Auth successful", "token": token}); // returns to us our token
+			res.status(200).json({message: "Auth successful", "token": token});
 		} else {
 			res.status(401).json({failure: `Auth Failure.`});
 		}

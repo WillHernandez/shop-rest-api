@@ -44,7 +44,6 @@ const getProduct = async (req, res) => {
 }
 
 // update
-// if using findById, we can just pass param. if using another method eg findOneAndUpdate that doesnt specify its a search by id, u must use an object and explicitly state what the search param is.. eg findOneAndUpdate({_id: req.params.productId})
 const updateProduct = async (req, res) => {
 	await ProductsModel.findOneAndUpdate({ "email": req.body.email}, { ...req.body })
 	.then(data => res.status(200).json(data))
