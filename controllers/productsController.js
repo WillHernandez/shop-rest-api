@@ -18,34 +18,24 @@ const createProduct = async (req, res) => {
 
 // read
 const getProducts = async (req, res) => {
-	const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+	// const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
 	try {
 		const response = await ProductsModel.find({});
-		const data = response.map(prod => {
-			const { name, price, inStock, _id } = prod;
-			return { name, price, inStock, _id, "url": `${fullUrl}/${prod._id}` };
-		})
-		res.status(200).json(data);
+		res.status(200).json(response);
 	} catch(e) {
 		console.log(e);
 	}
 }
 
 const getProduct = async (req, res) => {
-	const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-	try {
-		const response = 	await ProductsModel.findById(req.params.productId);
-		const { name, price, inStock, _id } = response;
-		const data = { name, price, inStock, _id, "url": `${fullUrl}/${response._id}` };
-		res.status(200).json(data);
-	} catch(e) {
-		console.log(e);
-	}
+		await ProductsModel.findOne({"name": req.params.name})
+		.then(data => res.status(200).json(data))
+		.catch(e => console.log({error: e.message}))
 }
 
 // update
 const updateProduct = async (req, res) => {
-	await ProductsModel.findOneAndUpdate({ "email": req.body.email}, { ...req.body })
+	await ProductsModel.findOneAndUpdate({ "name": req.body.name}, { ...req.body })
 	.then(data => res.status(200).json(data))
 	.catch(err => res.status(400).json({error: err.message}))
 }

@@ -6,13 +6,29 @@ const ProductsSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	title: {
+		type: String,
+		required: true,
+	},
 	price: {
 		type: Number,
 		required: true,
 	},
-	inStock: {
-		type: Boolean,
+	features: {
+		type: [String],
+		required: true,
+	},
+	description: {
+		type: String,
+		required: true,
+	},
+	quantity: {
+		type: Number,
 		required: true
+	},
+	productLinks: {
+		type: [String],
+		required: false
 	}
 })
 
