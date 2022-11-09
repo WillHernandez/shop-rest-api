@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon server"
+    "dev": "npx nodemon server",
+    "inspect": "node --inspect server "
   },
   "keywords": [],
   "author": "",

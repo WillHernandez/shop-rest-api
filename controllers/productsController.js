@@ -27,8 +27,14 @@ const getProducts = async (req, res) => {
 	}
 }
 
-const getProduct = async (req, res) => {
+const getSingleProduct = async (req, res) => {
 		await ProductsModel.findOne({"name": req.params.name})
+		.then(data => res.status(200).json(data))
+		.catch(e => console.log({error: e.message}))
+}
+
+const getProductBrand = async (req, res) => {
+		await ProductsModel.find({ brand: req.params.brand })
 		.then(data => res.status(200).json(data))
 		.catch(e => console.log({error: e.message}))
 }
@@ -60,7 +66,8 @@ const deleteProduct = async (req, res) => {
 
 module.exports = {
 	createProduct,
-	getProduct,
+	getProductBrand,
+	getSingleProduct,
 	getProducts,
 	updateProduct,
 	deleteProduct

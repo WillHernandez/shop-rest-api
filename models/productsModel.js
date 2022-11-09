@@ -6,6 +6,10 @@ const ProductsSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	brand: {
+		type: String,
+		required: true,
+	},
 	title: {
 		type: String,
 		required: true,
@@ -16,7 +20,7 @@ const ProductsSchema = new Schema({
 	},
 	features: {
 		type: [String],
-		required: true,
+		required: false,
 	},
 	description: {
 		type: String,
