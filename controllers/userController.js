@@ -21,9 +21,20 @@ const signUp = async (req, res) => {
 
 const logIn = async (req, res) => {
 	try {
-		const user = await UserModel.findOne({ email: req.body.email });
-		let match;
-		user ?  match = await bcrypt.compare(req.body.password, user.password) : null
+		let user = await UserModel.findOne({ email: req.body.email });
+		let match = await bcrypt.compare(req.body.password, user.password);
+		if(user && match) {
+			res.status(200).json(user);
+		}
+	} catch(e) {
+		res.status(400).json({error: "Auth Failure"})
+	}
+}
+
+const getToken = async (req, res) => {
+	try {
+		let user = await UserModel.findOne({ email: req.body.email });
+		let match = await bcrypt.compare(req.body.password, user.password);
 		if(user && match) {
 			const token = await jwt.sign({
 					email: user.email,
@@ -34,9 +45,7 @@ const logIn = async (req, res) => {
 					expiresIn: "1h"
 				}
 			)
-			res.status(200).json({message: "Auth successful", "token": token});
-		} else {
-			res.status(401).json({failure: `Auth Failure.`});
+			res.status(200).json({token});
 		}
 	} catch(e) {
 		res.status(400).json({error: e})
@@ -45,5 +54,6 @@ const logIn = async (req, res) => {
 
 module.exports = {
 	signUp,
-	logIn
+	logIn,
+	getToken
 }
