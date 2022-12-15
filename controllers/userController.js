@@ -25,6 +25,8 @@ const logIn = async (req, res) => {
 		let match = await bcrypt.compare(req.body.password, user.password);
 		if(user && match) {
 			res.status(200).json(user);
+		} else {
+			res.status(401).json({error: "Auth Failure"})
 		}
 	} catch(e) {
 		res.status(400).json({error: "Auth Failure"})

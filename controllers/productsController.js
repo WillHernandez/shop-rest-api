@@ -28,7 +28,7 @@ const getProducts = async (req, res) => {
 }
 
 const getSingleProduct = async (req, res) => {
-		await ProductsModel.findOne({"name": req.params.name})
+		await ProductsModel.findOne({ name: req.params.name})
 		.then(data => res.status(200).json(data))
 		.catch(e => console.log({error: e.message}))
 }
