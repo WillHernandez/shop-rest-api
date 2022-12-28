@@ -1,5 +1,4 @@
 require('dotenv').config();
-const express = require('express');
 const UserModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -9,8 +8,8 @@ const signUp = async (req, res) => {
 		const user = await UserModel.findOne({ email: req.body.email });
 		if(!user) { 							 												  // saltRounds
 			const saltedHash = await bcrypt.hash(req.body.password, 10);
-			await UserModel.create({"email":req.body.email, "password": saltedHash});
-			res.status(200).json({success: "User created"});
+			const newUser = await UserModel.create({"email":req.body.email, "password": saltedHash});
+			res.status(200).json(newUser);
 		} else {
 			return res.status(400).json({error: `User email ${req.body.email} already exists.`});
 		}

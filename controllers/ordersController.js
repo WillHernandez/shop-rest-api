@@ -30,6 +30,7 @@ const getOrder = async (req, res) => {
 }
 
 // update
+// check closer... use try catch to
 const updateOrder = async (req, res) => {
 	await OrdersModel.findOneAndUpdate({ "email": req.params.email}, { ...req.body })
 	.then(data => res.status(200).json(data))
