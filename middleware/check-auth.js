@@ -1,5 +1,4 @@
-require('dotenv').config();
-const express = require('express');
+// require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
