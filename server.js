@@ -11,9 +11,12 @@ require('dotenv').config();
 
 const connectDB = async () => {
 	try {
-		await mongoose.connect(process.env.MONGO_URI);
+		const conn = await mongoose.connect(process.env.MONGO_URI);
+		const connHost = await conn.connection.host;
+		console.log(`MongoDb connected ${connHost}`);
 	} catch(e) {
 		console.error(e);
+		process.exit(1);
 	}
 }
 
@@ -28,6 +31,7 @@ app.use('/api/user', userRoutes);
 
 connectDB().then(()=> {
 	app.listen(port, () => {
-		console.log(`MongoDb connected / Server running on port ${port}`);
+		// console.log(`MongoDb connected / Server running on port ${port}`);
+		console.log(`listening for requests`);
 	});
 })
