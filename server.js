@@ -9,6 +9,14 @@ const orderRoutes = require('./routes/orderRoutes');
 const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
+const connectDB = async () => {
+	try {
+		await mongoose.connect(process.env.MONGO_URI);
+	} catch(e) {
+		console.error(e);
+	}
+}
+
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(morgan('dev'));
@@ -18,27 +26,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/user', userRoutes);
 
-// middleware to catch all errors thrown in app
-app.use((req, res, next) => {
-	const err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+connectDB().then(()=> {
+	app.listen(port, () => {
+		console.log(`MongoDb connected / Server running on port ${port}`);
+	});
 })
-app.use((err, req, res, next) => {
-	res.status(err.status || 500);
-	res.json({error: {
-		message: err.message,
-	}})
-})
-
-const dbConnect = async () => {
-	try {
-		await mongoose.connect(process.env.MONGO_URI);
-		app.listen(port, () => {
-			console.log(`MongoDb connected / Server running on port ${port}`);
-		});
-	} catch(e) {
-		console.error(e);
-	}
-}
-dbConnect();
