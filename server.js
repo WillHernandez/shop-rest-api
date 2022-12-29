@@ -6,6 +6,7 @@ const cors = require('cors');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const userRoutes = require('./routes/userRoutes');
+// require('dotenv').config();
 
 const connectDB = async () => {
 	try {
