@@ -11,7 +11,7 @@ const signUp = async (req, res) => {
 			const newUser = await UserModel.create({"email":req.body.email, "password": saltedHash});
 			res.status(200).json(newUser);
 		} else {
-			return res.status(400).json({error: `User email ${req.body.email} already exists.`});
+			return res.status(409).json({error: `User email ${req.body.email} already exists.`});
 		}
 	} catch(e) {
 		res.status(400).json({error: e});
