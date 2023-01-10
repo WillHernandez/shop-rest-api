@@ -10,6 +10,6 @@ router.post('/', checkAuth, createProduct);
 router.get('/', getProducts);
 router.get('/:brand/:name', getSingleProduct);
 router.get('/:brand', getProductBrand);
-router.patch('/', checkAuth, updateProduct);
+router.patch('/', updateProduct);
 router.delete('/', checkAuth, deleteProduct);
 module.exports = router;
